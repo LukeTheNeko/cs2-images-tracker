@@ -1,6 +1,31 @@
 {
+  "name": "image-tracker",
+  "version": "1.0.0",
+  "description": "Tracker Images CS2 ",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "cs2",
+    "items",
+    "tracker",
+    "counter",
+    "strike",
+    "images"
+  ],
+  "author": "LukeTheNeko",
+  "license": "MIT",
   "dependencies": {
-    "steam-user": "^5.0.1",
+    "@node-steam/vdf": "^2.2.0",
+    "@types/node": "^20.14.2",
+    "@types/steam-user": "^5.0.0",
+    "pk": "^1.1.0",
+    "steam-user": "^5.0.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
     "vpk": "^0.2.0"
   }
 }

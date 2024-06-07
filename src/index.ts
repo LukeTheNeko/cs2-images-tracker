@@ -1,17 +1,19 @@
-/**
- * This code is from csfloat repo. I made small changes to get the images.
- * https://github.com/csfloat/cs-files/blob/5ff0f212ff0dc2b6f6380fc6d1a93121c2b9c2cd/index.js
- */
-const SteamUser = require("steam-user");
-const fs = require("fs");
-const vpk = require("vpk");
-const appId = 730;
-const depotId = 2347770;
-const dir = `./static`;
-const temp = "./temp";
-const manifestIdFile = "manifestId.txt";
+import SteamUser from "steam-user";
+import fs from "fs";
+import vpk from "vpk";
 
-const vpkFolders = [
+interface CustomSteamUser extends SteamUser {
+    downloadFile(appId: number, depotId: number, file: any, filePath: string): Promise<void>;
+    getManifest(appId: number, depotId: number, manifestId: string, access: string): Promise<any>;
+}
+
+const appId: number = 730;
+const depotId: number = 2347770;
+const dir: string = "./static";
+const temp: string = "./temp";
+const manifestIdFile: string = "manifestId.txt";
+
+const vpkFolders: string[] = [
     "panorama/images/econ/characters",
     "panorama/images/econ/default_generated",
     "panorama/images/econ/music_kits",
@@ -25,28 +27,26 @@ const vpkFolders = [
     "panorama/images/econ/weapon_cases",
 ];
 
-async function downloadVPKDir(user, manifest) {
-    const dirFile = manifest.manifest.files.find((file) =>
+async function downloadVPKDir(user: CustomSteamUser, manifest: any): Promise<vpk> {
+    const dirFile = manifest.manifest.files.find((file: any) =>
         file.filename.endsWith("csgo\\pak01_dir.vpk")
     );
 
-    console.log(`Downloading vpk dir`);
-
+    console.log("Downloading vpk dir");
     await user.downloadFile(appId, depotId, dirFile, `${temp}/pak01_dir.vpk`);
 
-    vpkDir = new vpk(`${temp}/pak01_dir.vpk`);
+    const vpkDir = new vpk(`${temp}/pak01_dir.vpk`);
     vpkDir.load();
-
     return vpkDir;
 }
 
-function getRequiredVPKFiles(vpkDir) {
-    const requiredIndices = [];
+function getRequiredVPKFiles(vpkDir: any): number[] {
+    const requiredIndices: number[] = [];
 
     for (const fileName of vpkDir.files) {
-        for (const f of vpkFolders) {
-            if (fileName.startsWith(f)) {
-                console.log(`Found vpk for ${f}: ${fileName}`);
+        for (const folder of vpkFolders) {
+            if (fileName.startsWith(folder)) {
+                console.log(`Found vpk for ${folder}: ${fileName}`);
 
                 const archiveIndex = vpkDir.tree[fileName].archiveIndex;
 
@@ -62,26 +62,21 @@ function getRequiredVPKFiles(vpkDir) {
     return requiredIndices.sort((a, b) => a - b);
 }
 
-async function downloadVPKArchives(user, manifest, vpkDir) {
+async function downloadVPKArchives(user: CustomSteamUser, manifest: any, vpkDir: any) {
     const requiredIndices = getRequiredVPKFiles(vpkDir);
 
     console.log(`Required VPK files ${requiredIndices}`);
 
-    for (let index in requiredIndices) {
-        index = parseInt(index);
-
-        // pad to 3 zeroes
-        const archiveIndex = requiredIndices[index];
-        const paddedIndex =
-            "0".repeat(3 - archiveIndex.toString().length) + archiveIndex;
+    for (const index of requiredIndices) {
+        const paddedIndex = index.toString().padStart(3, '0');
         const fileName = `pak01_${paddedIndex}.vpk`;
 
-        const file = manifest.manifest.files.find((f) =>
+        const file = manifest.manifest.files.find((f: any) =>
             f.filename.endsWith(fileName)
         );
         const filePath = `${temp}/${fileName}`;
 
-        const status = `[${index + 1}/${requiredIndices.length}]`;
+        const status = `[${requiredIndices.indexOf(index) + 1}/${requiredIndices.length}]`;
 
         console.log(`${status} Downloading ${fileName}`);
 
@@ -89,10 +84,8 @@ async function downloadVPKArchives(user, manifest, vpkDir) {
     }
 }
 
-if (process.argv.length != 4) {
-    console.error(
-        `Missing input arguments, expected 4 got ${process.argv.length}`
-    );
+if (process.argv.length !== 4) {
+    console.error(`Missing input arguments, expected 4 got ${process.argv.length}`);
     process.exit(1);
 }
 
@@ -104,20 +97,18 @@ if (!fs.existsSync(temp)) {
     fs.mkdirSync(temp);
 }
 
-const user = new SteamUser();
+const user = new SteamUser() as CustomSteamUser;
 
 console.log("Logging into Steam....");
 
 user.logOn({
     accountName: process.argv[2],
     password: process.argv[3],
-    rememberPassword: true,
     logonID: 2121,
 });
 
 user.once("loggedOn", async () => {
-    const cs = (await user.getProductInfo([appId], [], true)).apps[appId]
-        .appinfo;
+    const cs = (await user.getProductInfo([appId], [], true)).apps[appId].appinfo;
     const commonDepot = cs.depots[depotId];
     const latestManifestId = commonDepot.manifests.public.gid;
 
@@ -125,29 +116,29 @@ user.once("loggedOn", async () => {
 
     let existingManifestId = "";
 
+    interface NodeJSError extends Error {
+        code?: string;
+    }
+    
     try {
-        existingManifestId = fs.readFileSync(`${dir}/${manifestIdFile}`);
-    } catch (err) {
-        if (err.code != "ENOENT") {
-            throw err;
+        existingManifestId = fs.readFileSync(`${dir}/${manifestIdFile}`, 'utf8');
+    } catch (err: unknown) {
+        const error = err as NodeJSError;
+        if (error.code === "ENOENT") {
+            console.log("Manifest file not found, it will be created.");
+        } else {
+            throw error;
         }
     }
 
-    if (existingManifestId == latestManifestId) {
+    if (existingManifestId === latestManifestId) {
         console.log("Latest manifest Id matches existing manifest Id, exiting");
         process.exit(0);
     }
 
-    console.log(
-        "Latest manifest Id does not match existing manifest Id, downloading game files"
-    );
+    console.log("Latest manifest Id does not match existing manifest Id, downloading game files");
 
-    const manifest = await user.getManifest(
-        appId,
-        depotId,
-        latestManifestId,
-        "public"
-    );
+    const manifest = await user.getManifest(appId, depotId, latestManifestId, "public");
 
     const vpkDir = await downloadVPKDir(user, manifest);
     await downloadVPKArchives(user, manifest, vpkDir);
@@ -155,7 +146,7 @@ user.once("loggedOn", async () => {
     try {
         fs.writeFileSync(`${dir}/${manifestIdFile}`, latestManifestId);
     } catch (error) {
-        throw err;
+        throw error;
     }
 
     process.exit(0);
