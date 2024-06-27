@@ -1,7 +1,7 @@
 {
-  "name": "image-tracker",
-  "version": "1.0.0",
-  "description": "Tracker Images CS2 ",
+  "name": "cs2-images-tracker",
+  "version": "1.1.0",
+  "description": "Counter Strike Images Tracker",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -9,12 +9,14 @@
     "start": "node dist/index.js"
   },
   "keywords": [
-    "cs2",
-    "items",
-    "tracker",
+    "counter-strike-2",
+    "counter-strike",
     "counter",
     "strike",
-    "images"
+    "csgo",
+    "cs2",
+    "images",
+    "tracker"
   ],
   "author": "LukeTheNeko",
   "license": "MIT",
