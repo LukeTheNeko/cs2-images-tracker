@@ -89,13 +89,13 @@ if (process.argv.length !== 4) {
     process.exit(1);
 }
 
-if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir);
-}
+const directories = [dir, temp];
 
-if (!fs.existsSync(temp)) {
-    fs.mkdirSync(temp);
-}
+directories.forEach(directory => {
+    if (!fs.existsSync(directory)) {
+        fs.mkdirSync(directory);
+    }
+});
 
 const user = new SteamUser() as CustomSteamUser;
 
