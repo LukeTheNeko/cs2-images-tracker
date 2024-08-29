@@ -1,6 +1,7 @@
 {
   "name": "cs2-images-tracker",
-  "version": "1.1.0",
+  "author": "LukeTheNeko",
+  "version": "1.2.0",
   "description": "Counter Strike Images Tracker",
   "main": "dist/index.js",
   "scripts": {
@@ -18,7 +19,6 @@
     "images",
     "tracker"
   ],
-  "author": "LukeTheNeko",
   "license": "MIT",
   "dependencies": {
     "@node-steam/vdf": "^2.2.0",
