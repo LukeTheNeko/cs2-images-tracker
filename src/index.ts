@@ -9,9 +9,9 @@ interface CustomSteamUser extends SteamUser {
 
 const appId: number = 730;
 const depotId: number = 2347770;
-const dir: string = "./static";
+const dir: string = "./public/static";
 const temp: string = "./temp";
-const manifestIdFile: string = "manifestId.txt";
+const manifestIdFile: string = `${dir}/manifestId.txt`;
 
 const vpkFolders: string[] = [
     "panorama/images/econ/characters",
@@ -25,6 +25,7 @@ const vpkFolders: string[] = [
     "panorama/images/econ/tools",
     "panorama/images/econ/weapons",
     "panorama/images/econ/weapon_cases",
+    "panorama/images/econ/tournaments",
 ];
 
 async function downloadVPKDir(user: CustomSteamUser, manifest: any): Promise<vpk> {
@@ -99,7 +100,7 @@ directories.forEach(directory => {
 
 const user = new SteamUser() as CustomSteamUser;
 
-console.log("Logging into Steam....");
+console.log("Logging into Steam...");
 
 user.logOn({
     accountName: process.argv[2],
@@ -121,7 +122,7 @@ user.once("loggedOn", async () => {
     }
     
     try {
-        existingManifestId = fs.readFileSync(`${dir}/${manifestIdFile}`, 'utf8');
+        existingManifestId = fs.readFileSync(manifestIdFile, 'utf8');
     } catch (err: unknown) {
         const error = err as NodeJSError;
         if (error.code === "ENOENT") {
@@ -144,7 +145,7 @@ user.once("loggedOn", async () => {
     await downloadVPKArchives(user, manifest, vpkDir);
 
     try {
-        fs.writeFileSync(`${dir}/${manifestIdFile}`, latestManifestId);
+        fs.writeFileSync(manifestIdFile, latestManifestId);
     } catch (error) {
         throw error;
     }

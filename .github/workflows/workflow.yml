@@ -31,7 +31,7 @@ jobs:
         run: |
           if [ -f "./temp/pak01_dir.vpk" ]; then
             chmod +x ./Decompiler
-            ./Decompiler -i "./temp/pak01_dir.vpk" -o "./static" -e "vtex_c" -d -f "panorama/images/econ"
+            ./Decompiler -i "./temp/pak01_dir.vpk" -o "./public/static" -e "vtex_c" -d -f "panorama/images/econ"
           else
             echo "pak01_dir.vpk not found, skipping decompilation"
           fi
@@ -40,9 +40,9 @@ jobs:
         id: manifestId
         uses: juliangruber/read-file-action@v1
         with:
-          path: ./static/manifestId.txt
+          path: ./public/static/manifestId.txt
 
       - name: Commit & push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "manifest ${{ steps.manifestId.outputs.content }}"
+          commit_message: "manifest: ${{ steps.manifestId.outputs.content }}"

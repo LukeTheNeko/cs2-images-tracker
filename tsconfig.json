@@ -13,15 +13,6 @@
     "baseUrl": "./src",                        
     "types": ["node"],                        
     "typeRoots": ["./@types", "./node_modules/@types"],    
-    "paths": {
-      "#database": ["./database/index.ts"],
-      "#base": ["./discord/base/index.ts"],
-      "#functions": ["./functions/index.ts"],
-      "#menus": ["./menus/index.ts"],
-      "#settings": ["./settings/index.ts"],
-      "#tools": ["./tools/index.ts"],
-      "#lang/*": ["../lang/*"]
-    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
