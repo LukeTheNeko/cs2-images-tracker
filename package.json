@@ -23,9 +23,9 @@
   "dependencies": {
     "@node-steam/vdf": "^2.2.0",
     "@types/node": "^20.14.2",
-    "@types/steam-user": "^5.0.0",
+    "@types/steam-user": "^5.0.4",
     "pk": "^1.1.0",
-    "steam-user": "^5.0.10",
+    "steam-user": "^5.2.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
     "vpk": "^0.2.0"
