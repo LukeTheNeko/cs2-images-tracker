@@ -1,8 +1,7 @@
 {
-  "name": "cs2data-images",
-  "author": "LukeTheNeko",
-  "version": "1.1.2",
-  "description": "Counter Strike Images Tracker",
+  "name": "cs2-images-tracker",
+  "version": "1.2.0",
+  "description": "Counter Strike 2 Images Tracker",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
