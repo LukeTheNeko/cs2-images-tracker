@@ -24,7 +24,7 @@ const manifestIdFile: string = `${dir}/manifestId.txt`;
 
 const vpkFolders: string[] = [
     "panorama/images/econ/characters",
-    "panorama/images/econ/default_generated",
+  /*   "panorama/images/econ/default_generated",
     "panorama/images/econ/music_kits",
     "panorama/images/econ/patches",
     "panorama/images/econ/season_icons",
@@ -35,7 +35,7 @@ const vpkFolders: string[] = [
     "panorama/images/econ/weapons",
     "panorama/images/econ/weapon_cases",
     "panorama/images/econ/tournaments",
-    "panorama/images/econ/premier_seasons",
+    "panorama/images/econ/premier_seasons", */
 ];
 
 // Downloads the main VPK directory file
