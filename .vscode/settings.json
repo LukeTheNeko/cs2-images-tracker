@@ -15,7 +15,7 @@
     "explorer.fileNesting.patterns": {
       ".env": ".env.development, .env.production, .env.test, .env.example",
       "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, tsconfig.json, .eslintrc.json, .gitignore, LICENSE",
-      "accounts.txt": "libSkiaSharp.so, libTinyEXR.Native.so, Source2Viewer-CLI"
+      "accounts.json": "libSkiaSharp.so, libTinyEXR.Native.so, Source2Viewer-CLI"
     },
     "typescript.suggest.autoImports": true,
     "window.title": "${rootName}${separator}${appName}",
