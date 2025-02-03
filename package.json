@@ -1,6 +1,6 @@
 {
   "name": "cs2-images-tracker",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Counter Strike 2 Images Tracker",
   "main": "dist/index.js",
   "scripts": {
