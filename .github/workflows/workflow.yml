@@ -46,4 +46,4 @@ jobs:
       - name: Commit & push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "manifest: ${{ steps.manifestId.outputs.content }}"
+          commit_message: "📄 Manifest: ${{ steps.manifestId.outputs.content }}"
