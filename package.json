@@ -1,6 +1,6 @@
 {
   "name": "cs2-images-tracker",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Counter Strike 2 Images Tracker",
   "main": "dist/index.js",
   "scripts": {
@@ -20,12 +20,12 @@
   "license": "MIT",
   "dependencies": {
     "@node-steam/vdf": "^2.2.0",
-    "@types/node": "^22.13.1",
+    "@types/node": "^22.13.4",
     "@types/steam-user": "^5.0.0",
     "pk": "^1.1.0",
-    "steam-user": "^5.0.10",
+    "steam-user": "^5.2.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5",
+    "typescript": "^5.7.3",
     "vpk": "^0.2.0"
   }
 }
