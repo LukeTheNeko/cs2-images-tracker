@@ -1,4 +1,3 @@
-// src/services/SteamService.ts
 import { CustomSteamUser } from "../models/SteamUserModel";
 import { VPKDowloaderService } from "./VPKDowloaderService";
 import fs from "fs";
@@ -9,7 +8,7 @@ export class SteamService {
     private dir: string = "./public/static";
     private manifestIdFile: string = `${this.dir}/manifestId.txt`;
 
-    constructor(private user: CustomSteamUser, private vpkDownloader: VPKDowloaderService) {}
+    constructor(private user: CustomSteamUser, private vpkDownloader: VPKDowloaderService) { }
 
     async login(accountName: string, password: string) {
         console.log("🔑 Logging into Steam...");

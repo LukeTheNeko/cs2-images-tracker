@@ -17,7 +17,5 @@
       "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, tsconfig.json, .eslintrc.json, .gitignore, LICENSE",
       "accounts.json": "libSkiaSharp.so, libTinyEXR.Native.so, Source2Viewer-CLI"
     },
-    "typescript.suggest.autoImports": true,
-    "window.title": "${rootName}${separator}${appName}",
     "files.autoSave": "afterDelay",
   }
