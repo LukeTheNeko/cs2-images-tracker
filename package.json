@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "@node-steam/vdf": "^2.2.0",
-    "@types/node": "^22.13.5",
+    "@types/node": "^22.13.10",
     "@types/steam-user": "^5.0.0",
     "pk": "^1.1.0",
     "steam-user": "^5.2.0",
